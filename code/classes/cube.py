@@ -5,3 +5,5 @@ class Cube:
         self.free = free
         self.ontable = ontable
 
+    def __hash__(self):
+        return hash((self.held, self.on, self.free, self.ontable))

@@ -4,6 +4,7 @@ class Node:
         self.arm = arm
         self.heuristic_value = heuristic_value
         self.cost_value = cost_value
+    def __hash__(self):
+        return hash((''.join((map(str, self.cube_array))), self.arm, self.heuristic_value, self.cost_value))
 
-class Heap:
-
+#class Heap:
