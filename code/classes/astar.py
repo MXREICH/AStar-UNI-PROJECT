@@ -16,8 +16,9 @@ def realcost1(currentnode):
 
 def astar(h, g, startnode, goalnode):
     # 1. mettre le nœud de départ dans OUVERT
-    open_set = list([startnode])
-    closed_set = list([])
+    open_set = list()
+    open_set.append(startnode)
+    closed_set = list()
 
     # 2. SI OUVERT est vide, sortir avec Echec, SINON continuer
     while len(open_set) > 0:
