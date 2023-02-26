@@ -10,4 +10,10 @@ class Node:
     def __hash__(self):
         return hash((''.join((map(str, self.cube_array))), self.arm, self.heuristic_value, self.cost_value))
 
-    
+    def __str__(self):
+        st = "NODE [ "
+        for x in self.cube_array:
+            st = st + x.name + ","
+
+        st = st + "|" + str(self.heuristic_value) + "," + str(self.cost_value) + " ]"
+        return st
