@@ -47,4 +47,6 @@ if __name__ == '__main__':
     path_to_tree(startnode, ref)
     #DotExporter(ref[str(startnode)]).to_picture("test.png")
     DotExporter(ref[str(startnode)]).to_dotfile("test.dot")
- 
+    from graphviz import Source,render
+    Source.from_file("test.dot")
+    render("dot","png","test.dot")
