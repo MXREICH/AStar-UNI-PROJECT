@@ -10,9 +10,10 @@ class Cube:
         if self.on is not None:
             return Cube(self.on.cpy(), self.free, self.ontable, self.held, self.name)
         return Cube(None, self.free, self.ontable, self.held, self.name)
-
+    def getOnName(self):
+        return self.on.name if self.on is not None else "None"
     def __hash__(self):
-        return hash((self.held, self.on, self.free, self.ontable))
+        return hash((self.held, self.getOnName(), self.free, self.ontable))
 
     def __str__(self):
         if self.on is not None:

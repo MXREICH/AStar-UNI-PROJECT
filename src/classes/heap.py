@@ -47,7 +47,7 @@ class HNode:
         return HNode(cubes, self.arm.cpy(), self.heuristic_value, self.cost_value, self, [])
 
     def __hash__(self):
-        return hash((''.join((map(str, self.cube_array))), self.arm, self.heuristic_value, self.cost_value))
+        return hash((''.join((map(str, self.cube_array))), self.arm))
 
     def __str__(self):
         st = "NODE ["
@@ -63,7 +63,11 @@ class HNode:
 
     def __eq__(self, other):
         if isinstance(other, HNode):
-            return self.cube_array == other.cube_array and self.arm == other.arm and self.heuristic_value == other.heuristic_value
+            for x in self.cube_array:
+                if x not in other.cube_array:
+                    return False
+            t = self.arm == other.arm and self.heuristic_value == other.heuristic_value
+            return t
         return NotImplemented
 
     def __repr__(self):
