@@ -6,6 +6,11 @@ class Cube:
         self.ontable = ontable
         self.name = name
 
+    def cpy(self):
+        if self.on is not None:
+            return Cube(self.on.cpy(), self.free, self.ontable, self.held, self.name)
+        return Cube(None, self.free, self.ontable, self.held, self.name)
+
     def __hash__(self):
         return hash((self.held, self.on, self.free, self.ontable))
 
