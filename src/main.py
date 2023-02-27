@@ -1,7 +1,7 @@
 from anytree import Node
 from anytree.exporter import DotExporter
 
-from classes.astar import astar
+from classes.astar import astar, heuristic2
 from classes.astar import heuristic1
 from classes.astar import realcost1
 from classes.cube import Cube
@@ -41,7 +41,7 @@ if __name__ == '__main__':
     goalnode = HNode(cubes, Arm2, 0, 0, None, children)
 
     nodes = []
-    nodes = astar(heuristic1, realcost1, startnode, goalnode)
+    nodes = astar(heuristic2, realcost1, startnode, goalnode)
     ref = dict()
     path_to_tree(startnode, ref)
-    DotExporter(ref[str(startnode)]).to_picture("test.png")
+    DotExporter(ref[str(startnode)]).to_picture("test2.png")
