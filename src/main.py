@@ -30,18 +30,18 @@ if __name__ == '__main__':
     cubes = [A, B, C]
     children = []
 
-    startnode = HNode(cubes, Arm, 3, 0, None, children)
+    startnode = HNode(cubes, Arm, 10, 0, None, children)
 
-    A = Cube(C, True, False, False, "A")
-    B = Cube(None, False, True, False, "B")
-    C = Cube(B, False, False, False, "C")
+    A = Cube(B, True, False, False, "A")
+    B = Cube(C, False, False, False, "B")
+    C = Cube(None, False, True, False, "C")
 
     cubes = [A, B, C]
     Arm2 = Arm
     goalnode = HNode(cubes, Arm2, 0, 0, None, children)
 
     nodes = []
-    nodes = astar(heuristic2, realcost1, startnode, goalnode)
+    nodes = astar(heuristic1, realcost1, startnode, goalnode)
     ref = dict()
     path_to_tree(startnode, ref)
     DotExporter(ref[str(startnode)]).to_picture("test2.png")
