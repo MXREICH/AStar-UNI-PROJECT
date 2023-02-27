@@ -10,14 +10,3 @@ class Arm:
 
     def cpy(self):
         return Arm(self.free)
-
-    def put(self, cube1, cube2=None):  # Permet de mettre le cube1 se trouvant dans le bras sur un cube2 donné
-        # if not self.free & cube1.held & cube2.free:
-        cube1.held = False
-        cube1.free = True
-        self.free = True
-        if cube2 is not None:
-            cube1.on = cube2
-            cube2.free = False
-        else:
-            cube1.ontable = True
