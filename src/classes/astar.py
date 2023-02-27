@@ -10,8 +10,25 @@ def heuristic1(currentnode, goalnode):
     return n - it
 
 
-def realcost1(currentnode):
-    currentnode.cost_value = currentnode.cost_value + 1
+def heuristic2(current_node: HNode, goal_node: HNode):
+    it = 0
+    for x, y in zip(goal_node.cube_array, current_node.cube_array):
+        if x.ontable != y.ontable:
+            it = it + 2
+        if x.free != y.free:
+            it = it + 4
+        if x.held != y.held:
+            it = it + 1
+        if (x.on is None and y.on is not None) or (x.on is not None and y.on is None):
+            it = it + 2
+        if x.on is not None and y.on is not None:
+            if x.on.name != y.on.name:
+                it = it + 2
+    return it
+
+
+def realcost1(current_node: HNode):
+    current_node.cost_value = current_node.cost_value + 1
 
 
 def f(node):
@@ -56,6 +73,7 @@ def astar(h, g, startnode, goalnode):
                         newnode2.heuristic_value = h(newnode2, goalnode)
                         g(newnode2)
                         n.children.append(newnode2)
+
         # 5. Si un quelconque successeur de n est un noeud but, sortir avec la solution obtenue en remontant à
         # travers les pointeurs, sinon continuer
         for x in n.children:
