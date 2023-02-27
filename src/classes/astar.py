@@ -1,4 +1,4 @@
-from src.classes.heap import HNode
+from src.classes.heap import HNode, find_arr
 
 
 def heuristic1(currentnode, goalnode):
@@ -16,35 +16,6 @@ def realcost1(currentnode):
 
 def f(node):
     return node.heuristic_value + node.cost_value
-
-
-def prnt(arr):
-    for x in arr:
-        print(x)
-
-
-def eqnode(node1, node2):
-    for x, y in zip(node1.cube_array, node2.cube_array):
-        if x.free != y.free:
-            return False
-        if x.held != y.held:
-            return False
-        if x.ontable != y.ontable:
-            return False
-        if x.on is None and y.on is not None:
-            return False
-        if x.on is not None and y.on is None:
-            return False
-        if not(x.on is None and y.on is None) and x.on.name != y.on.name:
-            return False
-    return True
-
-
-def findarr(node_arr, node):
-    for nodei in node_arr:
-        if eqnode(nodei, node):
-            return nodei
-    return None
 
 
 def astar(h, g, startnode, goalnode):
@@ -101,8 +72,8 @@ def astar(h, g, startnode, goalnode):
         # 6. Pour tout successeur x de n
         for x in n.children:
             # b. si x n'est ni dans OUVERT ni dans FERME l'ajouter à OUVERT
-            x_open = findarr(open_list, x)
-            x_close = findarr(closed_list, x)
+            x_open = find_arr(open_list, x)
+            x_close = find_arr(closed_list, x)
             if x_open is None and x_close is None:
                 open_list.append(x)
             # c.i si x figure dans OUVERT ou FERME, comparer la nouvelle valeur de g(x) à l'ancienne. Si l'ancienne
@@ -119,7 +90,6 @@ def astar(h, g, startnode, goalnode):
             # d. ordonner OUVERT selon f(x)
             # a. on appelle également la fonction f qui retourne pour un état donné sa valeur g+h
         open_list = sorted(open_list, key=f)
-
         # 7. aller à 2.
 
     raise Exception("OPEN_LIST < 0 SANS SOLUTION")

@@ -2,6 +2,23 @@ from src.classes.cube import Cube
 from src.classes.arm import Arm
 
 
+def eq_node(node1, node2):
+    for x, y in zip(node1.cube_array, node2.cube_array):
+        if x.free != y.free or x.held != y.held or x.ontable != y.ontable or (x.on is None and y.on is not None) or (
+                x.on is not None and y.on is None):
+            return False
+        if not (x.on is None and y.on is None) and x.on.name != y.on.name:
+            return False
+    return True
+
+
+def find_arr(node_arr, node):
+    for node_i in node_arr:
+        if eq_node(node_i, node):
+            return node_i
+    return None
+
+
 class HNode:
     def __init__(self, cube_array: list[Cube], arm: Arm, heuristic_value, cost_value, parent, children):
         self.cube_array = cube_array
@@ -50,15 +67,13 @@ class HNode:
         return hash((''.join((map(str, self.cube_array))), self.arm))
 
     def __str__(self):
-        st = "NODE ["
+        st = ""
         for x in self.cube_array:
-            st = st + x.name + "/" + ("table" if x.ontable else ("Arm" if x.held else x.on.name)) + ","
-            if x.held:
-                st = st + "Arm: " + x.name
+            st = st + x.name + "/" + ("table" if x.ontable else ("Arm" if x.held else x.on.name)) + "\n"
         if self.arm.free:
             st = st + "Arm: Empty"
-
-        st = st + "|" + str(self.heuristic_value) + "," + str(self.cost_value) + " ]"
+        st = st + "\n"
+        st = st + "h=" + str(self.heuristic_value) + ", g=" + str(self.cost_value)
         return st
 
     def __eq__(self, other):

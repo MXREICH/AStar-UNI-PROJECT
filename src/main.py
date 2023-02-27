@@ -1,8 +1,7 @@
-import anytree
-from anytree import Node, RenderTree
+from anytree import Node
 from anytree.exporter import DotExporter
 
-from classes.astar import astar, prnt
+from classes.astar import astar
 from classes.astar import heuristic1
 from classes.astar import realcost1
 from classes.cube import Cube
@@ -45,8 +44,4 @@ if __name__ == '__main__':
     nodes = astar(heuristic1, realcost1, startnode, goalnode)
     ref = dict()
     path_to_tree(startnode, ref)
-    #DotExporter(ref[str(startnode)]).to_picture("test.png")
-    DotExporter(ref[str(startnode)]).to_dotfile("test.dot")
-    from graphviz import Source,render
-    Source.from_file("test.dot")
-    render("dot","png","test.dot")
+    DotExporter(ref[str(startnode)]).to_picture("test.png")
