@@ -2,7 +2,7 @@ from src.classes.cube import Cube
 from src.classes.arm import Arm
 
 
-def eq_node(node1, node2):
+def eq_node(node1, node2): # la fonction compare directement par valeur les états des cubes d'un node
     for x, y in zip(node1.cube_array, node2.cube_array):
         if x.free != y.free or x.held != y.held or x.ontable != y.ontable or (x.on is None and y.on is not None) or (
                 x.on is not None and y.on is None):
@@ -12,7 +12,7 @@ def eq_node(node1, node2):
     return True
 
 
-def find_arr(node_arr, node):
+def find_arr(node_arr, node): # trouve le noeud `node` dans `node_arr`
     for node_i in node_arr:
         if eq_node(node_i, node):
             return node_i
@@ -34,7 +34,8 @@ class HNode:
                 return x
         raise Exception("Cube introuvable")
 
-    def arm_put(self, cube, cube2=None):  # Permet de mettre le cube1 se trouvant dans le bras sur un cube2 donné
+    def arm_put(self, cube, cube2=None):  # Gestion des deux opérateurs en un seul grâce au passage de "None" si
+        # le cube2 n'est pas rempli lors de l'appel de fonction
         new_cube = self.get_cube(cube.name)
         new_cube.held = False
         new_cube.free = True
@@ -46,7 +47,8 @@ class HNode:
         else:
             new_cube.ontable = True
 
-    def arm_hold(self, cube, cube2=None):
+    def arm_hold(self, cube, cube2=None):  # Gestion des deux opérateurs en un seul grâce au passage de "None" si
+        # le cube2 n'est pas rempli lors de l'appel de fonction
         new_cube = self.get_cube(cube.name)
         new_cube.free = False
         new_cube.held = True
@@ -57,7 +59,7 @@ class HNode:
             new_cube.on = None
             new_cube2.free = True
 
-    def birth(self):
+    def birth(self):  # créer une deepcopy() des valeurs d'un node, puis l'associe en tant que parent avec self.
         cubes = []
         for x in self.cube_array:
             cubes.append(x.cpy())
@@ -80,7 +82,8 @@ class HNode:
             for x in self.cube_array:
                 if x not in other.cube_array:
                     return False
-            t = self.arm == other.arm and self.heuristic_value == other.heuristic_value
+            t = self.arm == other.arm and self.heuristic_value == other.heuristic_value  # On ne compare que ce qui
+            # caractérise un noeud dans la situation réelle
             return t
         return NotImplemented
 
