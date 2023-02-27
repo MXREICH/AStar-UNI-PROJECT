@@ -71,8 +71,7 @@ class HNode:
         for x in self.cube_array:
             st = st + x.name + "/" + ("table" if x.ontable else ("Arm" if x.held else x.on.name)) + "\n"
         if self.arm.free:
-            st = st + "Arm: Empty"
-        st = st + "\n"
+            st = st + "Arm: Empty | "
         st = st + "h=" + str(self.heuristic_value) + ", g=" + str(self.cost_value)
         return st
 
