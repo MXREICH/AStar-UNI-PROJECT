@@ -6,12 +6,14 @@ class Cube:
         self.ontable = ontable
         self.name = name
 
-    def cpy(self):
+    def cpy(self): # effectue une deepcopy d'un Cube
         if self.on is not None:
             return Cube(self.on.cpy(), self.free, self.ontable, self.held, self.name)
         return Cube(None, self.free, self.ontable, self.held, self.name)
-    def getOnName(self):
+
+    def getOnName(self): # permet de récupere le nom du cube sur lequel `self`se trouve
         return self.on.name if self.on is not None else "None"
+
     def __hash__(self):
         return hash((self.held, self.getOnName(), self.free, self.ontable))
 
